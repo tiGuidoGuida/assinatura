@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="s">
+  <title>Assinatura</title>
+</head>
+
+<body>
+  <div class="assinatura" style=" width: 463px;">
+    <hr size="1" style="width: 100%;  margin: 0 auto 0 0; " />
+    <h5 style="margin-left: 100px;">Instituto Alpha de Medicina para Saúde</h5>
+    
+    <table>
+      <tr>
+        <td style="font-family:tahoma,arial,verdana; font-size:11px; text-align:center" valign="top">
+          <img src="./novembro_azul_blog-1024x717.png" />
+        </td>
+        <td style="font-family:tahoma,arial,verdana; font-size:12px; padding-left:10px">
+          <strong id="nome">Nome Completo</strong>
+          <br />
+          <br />
+          <strong id="cargo">Cargo</strong>
+          <br />
+          <br />
+          <strong>Tel.:</strong> (11) 4636-8191
+          <br />
+          <br />
+          <strong>CNPJ: </strong>11.512.229/0001-10
+          <br />
+        </td>
+      </tr>
+    </table>
+    <td style="font-family:tahoma,arial,verdana; font-size:11px; text-align:center" valign="top">
+      <img src="./footer.png" />
+    </td>
+  </div>
+
+  <label for="nomeInput">Nome:</label>
+  <input type="text" id="nomeInput" placeholder="Insira o nome">
+  <label for "cargoInput">Cargo:</label>
+  <input type="text" id="cargoInput" placeholder="Insira o cargo">
+  <button id="converterBtn">Converter para Imagem</button>
+
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <script>
+    document.getElementById('converterBtn').addEventListener('click', function () {
+      var nomeInput = document.getElementById('nomeInput').value;
+      var cargoInput = document.getElementById('cargoInput').value;
+      var nomeElement = document.getElementById('nome');
+      var cargoElement = document.getElementById('cargo');
+      
+      // Atualiza o nome e o cargo com os valores inseridos nos campos de entrada
+      nomeElement.textContent = nomeInput;
+      cargoElement.textContent = cargoInput;
+      
+      var assinaturaElement = document.querySelector('.assinatura');
+      html2canvas(assinaturaElement, { scale: 2 }).then(function (canvas) {
+        var imgData = canvas.toDataURL('image/png');
+        var img = new Image();
+        img.src = imgData;
+
+        var a = document.createElement('a');
+        a.href = imgData;
+        a.download = 'assinatura.png';
+        a.appendChild(img);
+
+        document.body.appendChild(a);
+        
+        // Restaura os valores originais de nome e cargo após a conversão
+        nomeElement.textContent = "Nome Completo";
+        cargoElement.textContent = "Cargo";
+      });
+    });
+  </script>
+</body>
+</html>
